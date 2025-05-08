@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # PostgreSQL-database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 563298_syv7
+      POSTGRES_DB: google_scraper
+    volumes:
+      # Lagrer databasefiler lokalt på hosten for persistens
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # Sjekker at databasen er klar før andre tjenester starter
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - appnet
+
+  # Backend-tjenesten (Node.js crawler + API)
+  backend:
+    build:
+      context: ./google-v2.0-webscraper
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres # Starter etter postgresql - betyr ikke at den starter etter den er ferdig 
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: 563298_syv7
+      DB_NAME: google_scraper
+      DB_PORT: 5432
+      PORT: 5000
+    ports:
+      - "5000:5000" # Eksponerer backend-API til port 5000 lokalt
+    networks:
+      - appnet
+
+  # Frontend-tjenesten (Next.js webapp)
+  nextjs:
+    build:
+      context: ./google-2.0
+      dockerfile: Dockerfile
+    depends_on:
+      - backend # Starter etter backend - betyr ikke at den starter etter den er ferdig 
+    environment:
+      NODE_ENV: production
+      API_URL: http://backend:5000 # URL til backend-API internt i nettverket
+    ports:
+      - "3000:3000" # Eksponerer frontend på port 3000 lokalt
+    networks:
+      - appnet
+
+# Definerer lagring for databasen
+volumes:
+  pgdata:
+
+# Definerer felles nettverk slik at tjenestene kan kommunisere
+networks:
+  appnet:
+    driver: bridge

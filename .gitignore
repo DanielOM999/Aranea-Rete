@@ -1,0 +1,70 @@
+# Global ignores (apply to all projects)
+**/node_modules
+**/.env*
+**/.DS_Store
+**/*.log
+**/*.cache
+**/*.tsbuildinfo
+**/.idea
+**/.vscode
+
+# ========================
+# Google-2.0 (Frontend)
+# ========================
+
+# dependencies
+google-2.0/node_modules
+google-2.0/.pnp
+google-2.0/.pnp.*
+google-2.0/.yarn/*
+!google-2.0/.yarn/patches
+!google-2.0/.yarn/plugins
+!google-2.0/.yarn/releases
+!google-2.0/.yarn/versions
+
+# testing
+google-2.0/coverage
+
+# next.js
+google-2.0/.next/
+google-2.0/out/
+
+# production
+google-2.0/build
+
+# misc
+google-2.0/.DS_Store
+google-2.0/*.pem
+
+# debug
+google-2.0/npm-debug.log*
+google-2.0/yarn-debug.log*
+google-2.0/yarn-error.log*
+google-2.0/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+google-2.0/.env*
+
+# vercel
+google-2.0/.vercel
+
+# typescript
+google-2.0/*.tsbuildinfo
+google-2.0/next-env.d.ts
+
+# ========================
+# Google-v2.0-webscraper (Backend)
+# ========================
+google-v2.0-webscraper/dist/
+google-v2.0-webscraper/.pnpm-debug.log*
+
+# Local development files
+*.local
+
+# Debug files
+*.log.*
+*.pid
+
+# Temporary files
+*.tmp
+*.temp

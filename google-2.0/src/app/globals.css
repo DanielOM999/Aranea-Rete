@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* Definerer standard bakgrunns- og forgrunnsfarger */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Tilpasser tema-variabler for bruk i Tailwind */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Mørk modus – endrer bakgrunn og tekstfarge */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Grunnstil for <body> */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Animasjonseffekt for tre prikkers lastetilstand */
+.loading-dots::after {
+  content: '.';
+  animation: dots 1.5s infinite steps(4);
+}
+
+/* Tilpasset "fjern søk"-knapp for Webkit-baserte nettlesere */
+.search-clear::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239CA3AF'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+/* Øker størrelse og margin for større skjermer (Webkit) */
+@media (min-width: 640px) {
+  .search-clear::-webkit-search-cancel-button {
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+/* Firefox: Tilpass "fjern søk"-knappen */
+.search-clear::-moz-search-cancel-button {
+  -moz-appearance: none;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239CA3AF'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+/* Øker størrelse og margin for større skjermer (Firefox) */
+@media (min-width: 640px) {
+  .search-clear::-moz-search-cancel-button {
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+/* Definerer animasjon for lastende prikker */
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+  80%, 100% { content: ''; }
+}
