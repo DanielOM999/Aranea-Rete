@@ -33,7 +33,7 @@ export class Crawler {
       headless: true,
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      timeout: 60000,
+      timeout: 120000,
     });
 
     Crawler.initialized = true;
